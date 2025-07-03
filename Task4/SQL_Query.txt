@@ -1,0 +1,11 @@
+-- Все сотрудники
+SELECT * FROM "Employees";
+
+-- Сотрудники с ЗП > 10000
+SELECT * FROM "Employees" WHERE "Salary" > 10000;
+
+-- Удалить сотрудников старше 70 лет
+DELETE FROM "Employees" WHERE EXTRACT(YEAR FROM AGE("DateOfBirth")) > 70;
+
+-- Обновить ЗП до 15000 тем, у кого меньше
+UPDATE "Employees" SET "Salary" = 15000 WHERE "Salary" < 15000;
