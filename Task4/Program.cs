@@ -14,6 +14,15 @@ builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReact", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 var app = builder.Build();
@@ -28,5 +37,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapControllers();
+app.UseCors("AllowReact");
 
 app.Run();
